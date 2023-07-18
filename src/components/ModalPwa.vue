@@ -18,41 +18,7 @@ const emit = defineEmits<{
 }>()
 
 
-let deferredPrompt;
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent the mini-infobar from appearing on mobile
-  e.preventDefault();
-  // Stash the event so it can be triggered later.
-  deferredPrompt = e;
-  // Update UI notify the user they can install the PWA
-
-  // Optionally, send analytics event that PWA install promo was shown.
-  console.log(`'beforeinstallprompt' event was fired.`);
-
-});
-
-const install = async () => {
-
-  // Show the install prompt
-  deferredPrompt.prompt();
-  // Wait for the user to respond to the prompt
-  const { outcome } = await deferredPrompt.userChoice;
-  // Optionally, send analytics event with outcome of user choice
-  console.log(`User response to the install prompt: ${outcome}`);
-  // We've used the prompt, and can't use it again, throw it away
-  deferredPrompt = null;
-}
-
-window.addEventListener('appinstalled', () => {
-  // Hide the app-provided install promotion
-
-  // Clear the deferredPrompt so it can be garbage collected
-  deferredPrompt = null;
-  // Optionally, send analytics event to indicate successful install
-  console.log('PWA was installed');
-  localStorage.setItem('PWA', "true")
-});
 
 
 
@@ -60,17 +26,17 @@ window.addEventListener('appinstalled', () => {
 
 <template>
   <div @click.self="emit('closeModal')" class="modalregBackground">
-  
-      <div class="modalregActive">
-        <div @click="emit('closeModal')" class="modalregClose">
-          <img src="../assets/image/clouse.svg" alt="зыкрыть" />
-        </div>
-        <div class="modalreglogin">
-          <a class="modalregheader">Для вашего удобства установите приложение.</a>
-          
-        </div>
-        <button @click="install" class="save">Установить</button>
+
+    <div class="modalregActive">
+      <div @click="emit('closeModal')" class="modalregClose">
+        <img src="../assets/image/clouse.svg" alt="зыкрыть" />
       </div>
+      <div class="modalreglogin">
+        <a class="modalregheader">Для вашего удобства установите приложение.</a>
+
+      </div>
+      <button @click="emit('closeModal', 'succes')" class="save">Установить</button>
+    </div>
 
   </div>
 </template>
@@ -262,4 +228,5 @@ input:focus {
   border-color: #5d5d5e !important;
   outline: 0 none;
   outline-offset: 0;
-}</style>
+}
+</style>
