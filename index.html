@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="кг">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+
+	 <meta name="theme-color" content="#fff5f4"/>
+	 <link rel="apple-touch-icon" href="/android-icon-192x192-seochecker-manifest-311.png">
+	 <link rel='manifest' href='/manifest.json' type="application/manifest+json">
+ 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->	
+		 <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml">
+	<link rel="shortcut icon" href="favicon.svg" type="image/webp">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div class="preloader">
+		<div class="preloader__wrapper">
+			<p class="preloader__text">Загрузка</p>
+			<div class="b-ico-preloader"></div>
+			<div class="spinner"></div>
+		</div>
+	</div>
+  <style>
+    /* прелуадер */
+
+.spinner {
+	width: 80px;
+	height: 80px;
+	border: 2px solid #f3f3f3;
+	border-top: 3px solid #5a5a5a;
+	border-radius: 100%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	animation: spin 1s infinite linear;
+  }
+  
+  .preloader.fade {
+	opacity: 0;
+  }
+  
+  .b-ico-preloader {
+	background: url(http://weblaboratory.in.ua/wp-content/themes/graphy/images/new_logo.svg);
+	background-size: cover;
+	width: 52px;
+	height: 67px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	animation: ico 5s infinite linear;
+	transform-style: preserve-3d;
+  }
+  
+  @keyframes spin {
+	from {
+	  transform: rotate(0deg);
+	}
+	to {
+	  transform: rotate(360deg);
+	}
+  }
+  
+  @keyframes ico {
+	from {
+	  transform: rotateY(0deg);
+	}
+	to {
+	  transform: rotateY(360deg);
+	}
+  }
+
+
+.preloader{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #1f1f1f;
+	display: flex;
+	justify-content: center;
+	align-items:center;
+}
+
+.preloader__text{
+	font-family: 'MyriadProLightCondensed';
+	font-style: normal;
+	font-weight: 300;
+	color: rgb(255, 255, 255);
+}
+
+/*  */
+
+  </style>
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js?_v=20220904185010"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-messaging.js?_v=20220904185010"></script>
+    <script type="module" src="/src/main.ts"></script>
+	<script>
+
+
+					if ('serviceWorker' in navigator) {
+			navigator.serviceWorker
+				.register('./assets/sw.js')
+				.then(function (reg) {
+					console.log('Registration succeeded. Scope is ' + reg.scope);
+				})
+				.catch(function (error) {
+					console.error('Trouble with sw: ', error);
+				});
+		}
+
+		
+	</script>
+  </body>
+</html>
