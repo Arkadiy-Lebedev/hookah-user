@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useUserStore } from './userStore'
 
 import { apiMain } from "../api/api"
-import { ITables } from "../types/ITables"
+import { type ITables } from "../types/ITables"
 
 
 
@@ -41,9 +41,13 @@ export const useTablesList = defineStore('tablesList', () => {
       console.log(dates)
       const { data } = await axios.post(`${apiMain}api/client/booking/table_list`, { date: dates })
       tables.value = data.data
-      userStore.userInfo.table = undefined
+
+      const busyTableForClient = tables.value.find(el => el.client_id == userStore.userInfo.id && el.status == "busy")
+      userStore.userInfo.table = busyTableForClient?.number
+      userStore.userInfo.bookingId = busyTableForClient?.id    
       userStore.userInfo.order = ''
-      userStore.userInfo.bookingId = undefined
+   
+      
       
       isLoadTablList.value = false
     } catch (e) {
@@ -59,8 +63,12 @@ export const useTablesList = defineStore('tablesList', () => {
     if (id) {
       try {
         console.log(id)
+        userStore.userInfo.table = -1
+        userStore.userInfo.bookingId = -1
         const { data } = await axios.post(`${apiMain}api/orders/booking`, { id: id })
         ordersInBooking.value = data.data
+     
+
         console.log(data.data)
       } catch (e) {
         console.log(e)
@@ -91,15 +99,17 @@ export const useTablesList = defineStore('tablesList', () => {
     const newArray = tables.value.filter((el) => el.status == "active")
     return newArray
   })
-  const busyTables = computed(() => {
-    const newArray = tables.value.filter((el) => el.status == "busy")
-    const dataGodeGroup = newArray.reduce((acc, c) => (c.timeStart.split(' ')[0] in acc ? acc[c.timeStart.split(' ')[0]].push(c) : acc[c.timeStart.split(' ')[0]] = [c], acc), {});
-    console.log(dataGodeGroup)
-    return dataGodeGroup
-  })
+
+  // const busyTables = computed(() => {
+  //   const newArray = tables.value.filter((el) => el.status == "busy")
+
+  //      const dataGodeGroup = newArray.reduce((acc, c) => (c.timeStart.split(' ')[0] in acc ? acc[c.timeStart.split(' ')[0]].push(c) : acc[c.timeStart.split(' ')[0]] = [c], acc), {});
+
+  //   return dataGodeGroup
+  // })
 
   const activeBooking = async (id: number) => {
-    const item = tables.value.find(el => el.id == id)
+    const item:any = tables.value.find(el => el.id == id)
     item.status = "active"
     try {
       const { data } = await axios.post(`${apiMain}api/admin/action_table`, {
@@ -107,7 +117,7 @@ export const useTablesList = defineStore('tablesList', () => {
       })
 
       if (data) {
-        const item = tables.value.find(el => el.id == id)
+        const item:any = tables.value.find(el => el.id == id)
         item.status = "active"
       }
     } catch (e) {
@@ -117,7 +127,7 @@ export const useTablesList = defineStore('tablesList', () => {
   }
 
 
-  watch(tables, () => {
+  watch(userStore.userInfo, () => {
 
     const busyTableForClient = tables.value.find(el => el.client_id == userStore.userInfo.id && el.status == "busy")
     console.log(busyTableForClient)
@@ -129,7 +139,7 @@ export const useTablesList = defineStore('tablesList', () => {
   })
 
 
-  const table1Info = computed(() => (n): { tables: ITables[], status: string } => {
+  const table1Info = computed(() => (n:any): { tables: ITables[], status: string } => {
     let status = "free"
 
     const newArray = tables.value.filter((el) => el.number == n)
@@ -161,10 +171,10 @@ export const useTablesList = defineStore('tablesList', () => {
 
   });
 
-  socket.on("connect", (socket) => {
-    console.log("connect", socket)
+  // socket.on("connect", (socket) => {
+  //   console.log("connect", socket)
   
-  });
+  // });
 
   socket.on("disconnect", () => {
   
@@ -179,5 +189,5 @@ export const useTablesList = defineStore('tablesList', () => {
   });
 
 
-  return { socket, tables, getAllTables, activeTables, busyTables, activeBooking, getTablesInDate, table1Info, getOrderInBooking, ordersInBooking, addOrderForBooking, isLoadTablList }
+  return { socket, tables, getAllTables, activeTables, activeBooking, getTablesInDate, table1Info, getOrderInBooking, ordersInBooking, addOrderForBooking, isLoadTablList }
 })

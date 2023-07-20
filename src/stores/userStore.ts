@@ -4,17 +4,24 @@ import { defineStore } from 'pinia'
 interface IUser {
   name: string,
   phone: string,
-  id: number,
-  table: number,
-  order: string,
-  bookingId: number
+  id: number | undefined,
+  table: number | undefined,
+  order: string | undefined,
+  bookingId: number | undefined
 
 }
 
 
 export const useUserStore = defineStore('userStore', () => {
-  const userInfo = ref<IUser>({}) 
- 
+  const userInfo = ref<IUser>({
+    name: "",
+    phone: "",
+    id: undefined,
+    table: 0,
+    order: "",
+    bookingId: undefined
+}) 
+//  здесь вставить {}  в скобках
  
 
 

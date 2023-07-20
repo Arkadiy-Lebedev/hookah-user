@@ -5,10 +5,10 @@ import { defineStore } from 'pinia'
 
 
 export const useDateStore = defineStore('dateStore', () => {
-  const dateInBooking = ref<string>('') 
- 
- 
-  const entryDate = (dateMy: string) => {   
+  const dateInBooking = ref<string>('')
+
+
+  const entryDate = (dateMy: string | any) => {   
     console.log(dateMy)
     console.log(new Date())
       const options = { year: 'numeric', month: '2-digit', day: 'numeric' };

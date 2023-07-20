@@ -2,11 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 // @ts-ignore
 import MainLayout from '@/layout/MainLayout.vue'
 // @ts-ignore
-import PageHoll from '@/views/PageHoll.vue'
-import Products from '@/views/Products.vue'
-import Categories from '@/views/Categories.vue'
-import Auth from '@/views/Auth.vue'
-import Sale from '@/views/Sale.vue'
+import PageHoll from '../views/PageHoll.vue'
+import Products from '../views/Products.vue'
+import Categories from '../views/Categories.vue'
+import Auth from '../views/Auth.vue'
+import Sale from '../views/Sale.vue'
 import { useUserStore } from '../stores/userStore'
 
 const router = createRouter({
@@ -46,7 +46,7 @@ const router = createRouter({
       path: '/auth',
       name: 'auth',
       component: Auth
-    }   
+    }
   ]
 })
 

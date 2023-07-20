@@ -4,7 +4,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
-
+import LoadScript from "vue-plugin-load-script";
 import App from './App.vue'
 import router from './router'
 
@@ -13,6 +13,10 @@ import "primevue/resources/primevue.min.css";
 
 const pinia = createPinia()
 const app = createApp(App)
+
+app.use(LoadScript);
+
+
 
 
 app.use(pinia)
@@ -33,3 +37,5 @@ app.use(PrimeVue, {
 app.use(ToastService);
 
 app.mount('#app')
+
+

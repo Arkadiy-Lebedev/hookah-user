@@ -1,66 +1,209 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
-import ModalPwa from "../components/ModalPwa.vue"
+import { loadScript } from "vue-plugin-load-script";
+import { apiMain } from "../api/api"
+import axios from 'axios';
 
-const isModalRegistration = ref<boolean>()
+let firebaseConfig = {
+  apiKey: "AIzaSyB2bBdJWz8VQmIm74Sc3fXhceBd0ankfOA",
+  authDomain: "elastic-skin.firebaseapp.com",
+  projectId: "elastic-skin",
+  storageBucket: "elastic-skin.appspot.com",
+  messagingSenderId: "546865108327",
+  appId: "1:546865108327:web:9809a64f9940bb04c78bc2",
+  measurementId: "G-HB5H4R2Z0W"
+};
 
-const closeModal = (msg) => {
-  if (msg == 'succes') {
-    // toast.add({ severity: 'success', summary: 'Успешная регистрация', detail: 'Войдите под своими данными', group: 'pt', life: 10000 });
-    install()
-  }
-  isModalRegistration.value = false
-}
-
-
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent the mini-infobar from appearing on mobile
-  e.preventDefault();
-  // Stash the event so it can be triggered later.
-  deferredPrompt = e;
-  // Update UI notify the user they can install the PWA
-
-  // Optionally, send analytics event that PWA install promo was shown.
-  console.log(`'beforeinstallprompt' event was fired.`);
-
-});
-
-const install = async () => {
-
-  deferredPrompt.prompt();
-
-  const { outcome } = await deferredPrompt.userChoice;
-
-  console.log(`User response to the install prompt: ${outcome}`);
-
-  deferredPrompt = null;
-}
-
-window.addEventListener('appinstalled', () => {
-  // Hide the app-provided install promotion
-
-  // Clear the deferredPrompt so it can be garbage collected
-  deferredPrompt = null;
-  // Optionally, send analytics event to indicate successful install
-  console.log('PWA was installed');
-  localStorage.setItem('PWA', "true")
-});
+Promise.resolve()
+  .then(() =>
+    loadScript(
+      "https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"
+    )
+  )
+  .then(() =>
+    loadScript(
+      "https://www.gstatic.com/firebasejs/7.14.0/firebase-messaging.js"
+    )
+  )
+  .then(() =>
+    loadScript(
+      "https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"
+    )
+  )
+  .then(() => {
+    firebase.initializeApp(firebaseConfig);
+   
+    const messaging = firebase.messaging();
 
 
+    function IntitalizeFireBaseMessaging() {
+      messaging
+        .requestPermission()
+        .then(function () {
+          console.log("Notification Permission");
+          return messaging.getToken();
+        })
+        .then(function (token: string) {
+          console.log("Token : " + token);
 
-if (!localStorage.getItem('PWA')) {
-  setTimeout(() => isModalRegistration.value = true, 1000)
-}
+
+          // let formData = new FormData();
+          // formData.append('token', token);
+          // formData.append('rr', "token");
+          // fetch("http://localhost:8000/api/firebase", {
+          //   method: 'POST',
+          //   body: formData
+          // })
+
+          axios
+            .post(`${apiMain}api/firebase`, { token: token }, {
+              onUploadProgress: (e) => {
+                console.log(e)
+              },
+            })
+            .then((data) => {
+
+
+
+            }).catch((error) => {
+
+              console.log(error)
+            })
+            .finally(() => {
+              // loading.value = false;
+
+            });
+
+
+
+        })
+        .catch(function (reason: any) {
+          console.log(reason);
+        });
+    }
+
+
+
+    // messaging.onMessage(function (payload:any) {
+    //   console.log(payload);
+    //   const notificationOption = {
+    //     body: payload.notification.body,
+    //     badge: '/logo-app.png',
+    //     icon: payload.notification.icon
+    //   };
+
+    //   if (Notification.permission === "granted") {
+    //     var notification = new Notification(payload.notification.title, notificationOption);
+
+    //     notification.onclick = function (ev) {
+    //       ev.preventDefault();
+    //       window.open(payload.notification.click_action, '_blank');
+    //       notification.close();
+    //     }
+    //   }
+    // });
+
+
+    messaging.onMessage(function (payload: any) {
+      // play();
+      navigator.serviceWorker.register("/firebase-messaging-sw.js");
+      Notification.requestPermission(function (result) {
+        if (result === "granted") {
+          navigator.serviceWorker.ready
+            .then(function (registration) {
+              const data = { ...payload.notification, ...payload.data };
+              const notificationTitle = data.title;
+              const notificationOptions = {
+                body: data.body,
+                icon: data.icon,
+                image: data.image,
+                click_action: data.click_action,
+                requireInteraction: true,
+                data
+              };
+              return registration.showNotification(
+                notificationTitle,
+                notificationOptions
+              );
+            })
+            .catch(function (error) {
+              console.log("ServiceWorker registration failed", error);
+            });
+        }
+      });
+    });
+
+
+
+    messaging.onTokenRefresh(function () {
+      messaging.getToken()
+        .then(function (newtoken: string) {
+          console.log("New Token : " + newtoken);
+          // отправляем токен в php
+          // let formData = new FormData();
+          // formData.append('token', newtoken);
+          // fetch("test2.php", {
+          // 	method: 'POST',
+          // 	body: formData
+          // })
+        })
+        .catch(function (reason: any) {
+          console.log(reason);
+        })
+    })
+
+
+    console.log('разрешение ' + Notification.permission);
+    console.log(('Notification' in window));
+
+    // проверка на поддержку пуш и согласился или нет
+
+
+    IntitalizeFireBaseMessaging();
+  });
+
+
+
+// let deferredPrompt;
+
+// window.addEventListener('beforeinstallprompt', (e) => {
+  
+//   e.preventDefault();
+ 
+//   deferredPrompt = e;
+  
+
+
+//   console.log(`'beforeinstallprompt' event was fired.`);
+
+// });
+
+// const install = async () => {
+
+//   deferredPrompt.prompt();
+
+//   const { outcome } = await deferredPrompt.userChoice;
+
+//   console.log(`User response to the install prompt: ${outcome}`);
+
+//   deferredPrompt = null;
+// }
+
+// window.addEventListener('appinstalled', () => {
+    
+//   deferredPrompt = null;
+ 
+//   console.log('PWA was installed');
+//   localStorage.setItem('PWA', "true")
+// });
+
+
+
+// if (!localStorage.getItem('PWA')) {
+//   setTimeout(() => isModalRegistration.value = true, 1000)
+// }
 
 </script>
 <template>
-  <Teleport to="body">
-    <TransitionGroup name="list">
-      <ModalPwa v-if="isModalRegistration" @closeModal="closeModal" />
-    </TransitionGroup>
-  </Teleport>
   <div class="footer">
     <div class="footer__hall size">
       <router-link :to="{ name: 'holl' }" exact class="menu__link">
