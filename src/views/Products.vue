@@ -51,6 +51,27 @@ getProductsList(route.params.id)
   position: relative;
 }
 
+.main-items {
+  position: relative;
+  z-index: 2 !important;
+  background: none;
+}
+
+.main-menu:before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 6%;
+  background-image: url("../assets/image/bg.jpg");
+  background-position: 50% 0;
+
+}
+
 .main-menu-style {
   padding: 0 30px 0 30px;
   padding-bottom: 20px;

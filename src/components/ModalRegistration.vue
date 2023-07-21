@@ -113,7 +113,7 @@ const submitForm = () => {
             <p class="error-text" v-if="errors.isError">{{ errors.text }}</p>
           </div>
         </div>
-        <button class="save">Сохранить</button>
+        <button class="save">Зарегистрироваться</button>
       </div>
     </form>
   </div>
@@ -121,7 +121,9 @@ const submitForm = () => {
 
 <style scoped>
 .error-text {
-  color: #ff0000
+  color: #ff0000;
+  font-size: 14px;
+  margin: 0;
 }
 
 .--input-active {

@@ -16,8 +16,8 @@ const props = defineProps<Props>()
 
 <template>
 
-  <div class="main-items">
-        <img :src="props.img" alt="кальян классический" />
+  <div class="main-items">        
+        <img :src="props.img" alt="кальян классический" />      
         <div class="main-items__wrapper">
           <div class="main-items__description">
             <p class="main-items__name">{{props.header}}</p>
@@ -56,7 +56,10 @@ p {
 }
 
 .main-items img {
-  max-width: 12vh;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  
 }
 
 .main-items__name {
@@ -83,17 +86,22 @@ p {
 
 @media (max-width: 490px) {
   .main-items__name {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .main-items__explanation {
     font-size: 14px;
+    margin-top: 5px;
   }
 
   .main-items__price {
     color: #C69A5B;
-    font-size: 16px;
+    font-size: 15px;
   }
+  .main-items__name{
+    margin-bottom: 0;
+  }
+
 }
 
 @media (max-width: 450px) {
@@ -103,7 +111,7 @@ p {
   }
 
   .main-items__description {
-    margin-bottom: 2.2vh;
+    margin-bottom: 1.5vh;
   }
 
   .inscription-menu__hall {

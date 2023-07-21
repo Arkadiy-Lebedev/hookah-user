@@ -72,6 +72,16 @@ body{
   position: relative;
   justify-content: space-between;
   align-items: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+.menu p {
+  font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 4.2px;
+color: #C69A5B;
 }
 .menu::after {
   content: "";
@@ -82,21 +92,21 @@ body{
   position: absolute;
 }
 .menu__exit {
-  height: 2vh;
+  height: 2.6vh;
   margin-left: 3%;
 }
 .menu__question {
-  height: 2vh;
+  height: 2.6vh;
   margin-right: 3%;
 }
 
 .inscription__rowleft {
   rotate: 180deg;
-  height: 2vh;
+  height: 2.3vh;
   margin-left: 3%;
 }
 .inscription__rowright {
-  height: 2vh;
+  height: 2.3vh;
   margin-right: 3%;
 }
 .inscription__wrapper {

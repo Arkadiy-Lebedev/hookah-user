@@ -130,7 +130,9 @@ const submitForm = () => {
 
 <style scoped>
 .error-text {
-  color: #ff0000
+  color: #ff0000;
+  font-size: 14px;
+  
 }
 
 .list-enter-active,

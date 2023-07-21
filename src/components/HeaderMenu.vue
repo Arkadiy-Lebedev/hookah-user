@@ -33,8 +33,9 @@ const closeModal = (msg) => {
         </TransitionGroup>
       </Teleport>
               <div class="menu">
-                <img @click="logOut" src="../assets/image/exit.svg" alt="exit" class="menu__exit">
-                <img @click="isModalSetting = true" src="../assets/image/question.svg" alt="exit" class="menu__question">
+                <img @click="logOut" src="../assets/image/question.svg" alt="exit" class="menu__exit">
+                <p>Haradac</p>
+                <img @click="isModalSetting = true" src="../assets/image/gear_f5mctti5777s 1.svg" alt="exit" class="menu__question">
               </div>
        
 </template>
@@ -59,16 +60,6 @@ width: 1rem !important;
   width: 116px !important;
 }
 
-.inscription__hall {
-  font-size: 18px !important;
-  text-align: center !important;
-  color: aliceblue !important;
-  font-family: Roboto;
-  font-weight: 400 ;  
-padding: 0 !important;
-  background-color: rgb(0, 0, 0) !important;
-  border: none !important;
-}
 
 .inscription__hall:focus {
   box-shadow: none !important;

@@ -104,7 +104,7 @@ if (user.phone.length < 15) {
                   <input v-model="user.name"  id="inputname" type="text">
                 </div>
                 <div class="modallog stylefilds">
-                  <p> Телефон:</p>
+                  <p> Изменить телефон:</p>
                   <!-- <input id="inputtel" type="text"> -->
                   <InputMask id="basic" v-model="user.phone" mask="+7999-999-99-99" placeholder="Телефон" :pt="{
                     root: { class: '--input-active inputtel' }
@@ -129,7 +129,7 @@ if (user.phone.length < 15) {
                 </div>
               </div>
               <p class="error-text" v-if="errors.isError">{{ errors.text }}</p>              
-              <button class="save">Сохранить</button>
+              <button class="save">Изменить</button>
               </form>
             </div>
           </div>
@@ -138,7 +138,9 @@ if (user.phone.length < 15) {
 
 <style scoped>
 .error-text {
-  color: #ff0000
+  color: #ff0000;
+  font-size: 14px;
+  margin: 0;
 }
 
 .--input-active {
@@ -193,7 +195,8 @@ input:focus {
 
 .modalaccountActive {
   position: relative;
-  overflow: hidden;
+  z-index: 999;
+
 }
 .modalaccountlogin, .modalaccountClose {
 
@@ -211,7 +214,7 @@ input:focus {
   height: 100%;
   z-index: 1;
   opacity: 6%;
-  background-image: url("../img/bg.jpg");  
+  background-image: url("../assets/image/bg.jpg");  
   background-position: 50% 0;
  
 }
@@ -338,6 +341,8 @@ font-family: Roboto;
   }
 .modallogin{
   flex-direction: column;
+  gap: 1vh;
+  margin-bottom: 5vh;
 }
 #inputname {
   width: 200px;

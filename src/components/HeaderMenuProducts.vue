@@ -63,11 +63,12 @@ defineProps<Props>()
 }
 
 .inscription-menu__hall {
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
   color: aliceblue;
   font-family: Roboto;
   font-weight: 400;
-  margin-left: 70px;
+  margin-left: 33px;
+  letter-spacing: 2.2px;
 }
 </style>

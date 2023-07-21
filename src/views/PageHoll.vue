@@ -1744,21 +1744,21 @@ const closeModal = (msg) => {
 .table-1 {
   width: 13.3vh;
   position: absolute;
-  left: 2vh;
+  left: 3.8vh;
   top: 67vh;
 }
 
 .table-2 {
   width: 13.3vh;
   position: absolute;
-  left: 2vh;
+  left: 3.8vh;
   top: 56vh;
 }
 
 .table-3 {
   width: 13.3vh;
   position: absolute;
-  left: 2vh;
+  left: 3.8vh;
   top: 45vh;
 }
 
@@ -1773,21 +1773,21 @@ const closeModal = (msg) => {
   width: 8.7vh;
   position: absolute;
   left: 2vh;
-  top: 13vh;
+  top: 14vh;
 }
 
 .table-6 {
   width: 18.1vh;
   position: absolute;
-  left: 2vh;
-  top: 1vh;
+  left: 3.1vh;
+  top: 1.3vh;
 }
 
 .table-7 {
   width: 17.9vh;
   position: absolute;
-  right: 2vh;
-  top: 1vh;
+  right: 3.1vh;
+  top: 1.9vh;
 }
 
 .table-8 {

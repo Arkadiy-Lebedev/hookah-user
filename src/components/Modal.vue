@@ -111,7 +111,7 @@ const deleteBooking = async () => {
 
 <template>
   <div @click.self="emit('closeModal')" class="modalBackground">
-    <div class="modalActive">
+        <div class="modalActive">
       <!-- {{busyArray}}
              {{ userStore.userInfo }}
               {{ header }}             -->
@@ -122,7 +122,10 @@ const deleteBooking = async () => {
       <div class="modalpicture">
         <img :src="tableInfoSingle[0].image" alt="стол4" />
       </div>
-      <div v-if="isStatusActive" class="modalwraper">
+      <div>
+        <p class="modalinscription">Двухместный стол с кожанными креслами</p>
+      </div>
+      <div v-if="isStatusActive" class="modalwraper">       
         <div class="modaltime">
           <p>Стол уже занять, бронь не доступна</p>
         </div>
@@ -165,7 +168,8 @@ const deleteBooking = async () => {
       </div>
       <div class="modalWindow"></div>
     </div>
-  </div>
+    </div>
+
 </template>
 
 <style >
@@ -203,6 +207,15 @@ const deleteBooking = async () => {
 }
 
 /*--------------------*/
+.modalinscription {
+  color: #c69a5b;
+  font-size: 16px;
+  font-family: Roboto;
+  margin-top: 2vh;
+  padding-left: 2.9vh;
+  margin: 0;
+  padding-top: 1.8vh;
+}
 .modalBackground {
   display: flex;
   align-items: center;
@@ -223,6 +236,7 @@ const deleteBooking = async () => {
   -webkit-backdrop-filter: blur(5.8px);
 }
 
+
 .modalActive {
   width: 576px;
   background-color: #2d2d2d;
@@ -230,8 +244,30 @@ const deleteBooking = async () => {
   padding-top: 1.5vh;
   padding-bottom: 3vh;
   border-radius: 5px;
+  position: relative;
+  overflow: hidden;
 }
 
+.modalClose, .modalpicture, .modalwraper {
+
+position:relative;
+z-index: 2;
+}
+
+.modalActive:before {
+content: ' ';
+display: block;
+position: absolute;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+z-index: 1;
+opacity: 6%;
+background-image: url("../assets/image/bg.jpg");  
+background-position: 50% 0;
+
+}
 .modalWindow {
   position: relative;
 }
@@ -273,6 +309,7 @@ const deleteBooking = async () => {
   color: #898989;
   font-size: 18px;
   font-family: Roboto;
+  margin: 0;
 }
 
 .modaltime::after {

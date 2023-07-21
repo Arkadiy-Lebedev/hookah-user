@@ -53,7 +53,7 @@ width: 1rem !important;
 }
 
 .inscription__hall {
-  font-size: 18px !important;
+  font-size: 16px !important;
   text-align: center !important;
   color: aliceblue !important;
   font-family: Roboto;
