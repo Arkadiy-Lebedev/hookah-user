@@ -167,12 +167,12 @@ const submitForm = () => {
 }
 
 section {
-  height: 100dvh;
   height: 100vh;
+  height: 100dvh;  
   background: #01010c;
   position: relative;
   overflow: hidden;
-  transition: height 0.2 s linear;
+  transition: height 0.2s linear;
 }
 
 section:before {

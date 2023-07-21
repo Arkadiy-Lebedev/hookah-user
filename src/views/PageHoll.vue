@@ -1645,6 +1645,7 @@ const closeModal = (msg) => {
 .main {
   width: 100vw;
   height: 85vh;
+  height: 85dvh;
   background: #262626;
   /* overflow: hidden;
       overflow-y: scroll; */
@@ -1743,6 +1744,7 @@ const closeModal = (msg) => {
 
 .table-1 {
   width: 13.3vh;
+  width: 13.3dvh;
   position: absolute;
   left: 3.8vh;
   top: 67vh;
@@ -1750,6 +1752,7 @@ const closeModal = (msg) => {
 
 .table-2 {
   width: 13.3vh;
+  width: 13.3dvh;
   position: absolute;
   left: 3.8vh;
   top: 56vh;
@@ -1757,6 +1760,7 @@ const closeModal = (msg) => {
 
 .table-3 {
   width: 13.3vh;
+  width: 13.3dvh;
   position: absolute;
   left: 3.8vh;
   top: 45vh;
@@ -1764,6 +1768,7 @@ const closeModal = (msg) => {
 
 .table-4 {
   width: 13.7vh;
+  width: 13.7dvh;
   position: absolute;
   left: 1.7vh;
   top: 26vh;
@@ -1771,6 +1776,7 @@ const closeModal = (msg) => {
 
 .table-5 {
   width: 8.7vh;
+  width: 8.7dvh;
   position: absolute;
   left: 2vh;
   top: 14vh;
@@ -1778,6 +1784,7 @@ const closeModal = (msg) => {
 
 .table-6 {
   width: 18.1vh;
+  width: 18.1dvh;
   position: absolute;
   left: 3.1vh;
   top: 1.3vh;
@@ -1785,6 +1792,7 @@ const closeModal = (msg) => {
 
 .table-7 {
   width: 17.9vh;
+  width: 17.9dvh;
   position: absolute;
   right: 3.1vh;
   top: 1.9vh;
@@ -1792,6 +1800,7 @@ const closeModal = (msg) => {
 
 .table-8 {
   width: 13.7vh;
+  width: 13.7dvh;
   position: absolute;
   right: 1.7vh;
   top: 26vh;
@@ -1882,6 +1891,7 @@ const closeModal = (msg) => {
 
 .table-9 {
   width: 20.2vh;
+  width: 20.2dvh;
   position: absolute;
   left: 15.7vh;
   top: 1vh;
@@ -1889,6 +1899,7 @@ const closeModal = (msg) => {
 
 .table-10 {
   width: 16.2vh;
+  width: 16.2dvh;
   position: absolute;
   left: 2vh;
   top: 1.39vh;
@@ -1896,6 +1907,7 @@ const closeModal = (msg) => {
 
 .table-11 {
   width: 13.2vh;
+  width: 13.2dvh;
   position: absolute;
   left: 1.7vh;
   top: 15.29vh;
@@ -1903,6 +1915,7 @@ const closeModal = (msg) => {
 
 .table-12 {
   width: 13.2vh;
+  width: 13.2dvh;
   position: absolute;
   left: 1.7vh;
   top: 36.1vh;
@@ -1910,6 +1923,7 @@ const closeModal = (msg) => {
 
 .table-13 {
   width: 13.2vh;
+  width: 13.2dvh;
   position: absolute;
   left: 1.7vh;
   top: 56.9vh;

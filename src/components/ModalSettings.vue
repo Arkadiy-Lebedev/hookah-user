@@ -97,14 +97,14 @@ if (user.phone.length < 15) {
             </div>
             <div class="modalaccountlogin">
                <form class="form" @submit.prevent="submitForm">
-              <a class="modalaccountheader">Клиент</a>
+              <a class="modalaccountheader">Гость</a>
               <div class="modallogin">
                 <div class="modalname stylefilds">
-                  <p> Ваше имя:</p>
+                  <p>Имя:</p>
                   <input v-model="user.name"  id="inputname" type="text">
                 </div>
                 <div class="modallog stylefilds">
-                  <p> Изменить телефон:</p>
+                  <p> Телефон:</p>
                   <!-- <input id="inputtel" type="text"> -->
                   <InputMask id="basic" v-model="user.phone" mask="+7999-999-99-99" placeholder="Телефон" :pt="{
                     root: { class: '--input-active inputtel' }

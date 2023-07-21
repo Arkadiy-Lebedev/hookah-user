@@ -116,14 +116,14 @@ const deleteBooking = async () => {
              {{ userStore.userInfo }}
               {{ header }}             -->
       <div class="modalClose">
-        <p>Стол № {{ header }}</p>
+        <p>{{ tableInfoSingle[0].name }}</p>
         <img @click="emit('closeModal')" src="../assets/image/clouse.svg" alt="зыкрыть" />
       </div>
       <div class="modalpicture">
         <img :src="tableInfoSingle[0].image" alt="стол4" />
       </div>
       <div>
-        <p class="modalinscription">Двухместный стол с кожанными креслами</p>
+        <p class="modalinscription">{{ tableInfoSingle[0].description }}</p>
       </div>
       <div v-if="isStatusActive" class="modalwraper">       
         <div class="modaltime">

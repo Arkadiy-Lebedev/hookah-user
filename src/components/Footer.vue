@@ -281,6 +281,7 @@ Promise.resolve()
 .footer {
   background: #1F1F1F;
   height: 5.8vh;
+  height: 5.8dvh;
   width: 100%;
   margin-top: auto;
   display: flex;

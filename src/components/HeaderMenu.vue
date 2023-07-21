@@ -35,7 +35,7 @@ const closeModal = (msg) => {
               <div class="menu">
                 <img @click="logOut" src="../assets/image/question.svg" alt="exit" class="menu__exit">
                 <p>Haradac</p>
-                <img @click="isModalSetting = true" src="../assets/image/gear_f5mctti5777s 1.svg" alt="exit" class="menu__question">
+                <img @click="isModalSetting = true" src="../assets/image/gear.svg" alt="exit" class="menu__question">
               </div>
        
 </template>

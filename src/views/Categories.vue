@@ -143,15 +143,18 @@ p{
   padding: 0 30px 0 30px;
   padding-bottom:20px;
 }
-.main__picture img{
-  max-width: 100%;
+.main__picture img{  
+  width: 39vh;
+  width: 39dvh;
 }
 .main__picture {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 3vh;
+  margin-bottom: 1.5vh;
+  margin-bottom: 1.5dvh;
   margin-top: 1vh;
+  margin-top: 1dvh;
 }
 .products{
   display: grid;
