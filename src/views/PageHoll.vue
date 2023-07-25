@@ -1711,36 +1711,45 @@ const closeModal = (msg) => {
 .wall-1 svg {
   width: 18vh;
   position: absolute;
-  left: 1.5vh;
+  left: 1.5vh;  
+  left: 1.5dvh; 
   top: 22.2vh;
+  top: 22.2dvh;
 }
 
 .wall-2 svg {
   width: 15.2vh;
   position: absolute;
-  right: 1.5vh;
+  right: 1.5vh;  
+  right: 1.5dvh;  
   top: 22.2vh;
+  top: 22.2dvh;
 }
 
 .mapexit svg {
   width: 2.3vh;
   position: absolute;
   left: 5vh;
+  left: 5dvh;
   bottom: 1vh;
+  bottom: 1dvh;
 }
 
 .mapekino svg {
   width: 3vh;
   position: absolute;
   left: 1vh;
+  left: 1dvh;
   bottom: 5vh;
+  bottom: 5dvh;
 }
 
 .mapetext svg {
   width: 7vh;
   position: absolute;
-  left: calc(50%-26px);
+  left: calc(50% - 30px);
   top: 37vh;
+  top: 37dvh;
 }
 
 /* ------------------прочее конец */
@@ -1751,7 +1760,9 @@ const closeModal = (msg) => {
   width: 13.3dvh;
   position: absolute;
   left: 3.8vh;
+  left: 3.8dvh;
   top: 67vh;
+  top: 67dvh;
 }
 
 .table-2 {
@@ -1759,7 +1770,9 @@ const closeModal = (msg) => {
   width: 13.3dvh;
   position: absolute;
   left: 3.8vh;
+  left: 3.8dvh;
   top: 56vh;
+  top: 56dvh;
 }
 
 .table-3 {
@@ -1767,7 +1780,9 @@ const closeModal = (msg) => {
   width: 13.3dvh;
   position: absolute;
   left: 3.8vh;
+  left: 3.8dvh;
   top: 45vh;
+  top: 45dvh;
 }
 
 .table-4 {
@@ -1775,7 +1790,9 @@ const closeModal = (msg) => {
   width: 13.7dvh;
   position: absolute;
   left: 1.7vh;
+  left: 1.7dvh;
   top: 26vh;
+  top: 26dvh;
 }
 
 .table-5 {
@@ -1784,6 +1801,8 @@ const closeModal = (msg) => {
   position: absolute;
   left: 2vh;
   top: 14vh;
+  left: 2dvh;
+  top: 14dvh;
 }
 
 .table-6 {
@@ -1792,6 +1811,8 @@ const closeModal = (msg) => {
   position: absolute;
   left: 3.1vh;
   top: 1.3vh;
+  left: 3.1dvh;
+  top: 1.3dvh;
 }
 
 .table-7 {
@@ -1800,6 +1821,8 @@ const closeModal = (msg) => {
   position: absolute;
   right: 3.1vh;
   top: 1.9vh;
+  right: 3.1dvh;
+  top: 1.9dvh;
 }
 
 .table-8 {
@@ -1808,13 +1831,18 @@ const closeModal = (msg) => {
   position: absolute;
   right: 1.7vh;
   top: 26vh;
+  right: 1.7dvh;
+  top: 26dvh;
 }
 
 .table-bar svg {
   width: 16.6vh;
+  width: 16.6dvh;
   position: absolute;
   right: 1.5vh;
   top: 47vh;
+  right: 1.5dvh;
+  top: 47dvh;
 }
 
 /* ____________________________конец */
@@ -1899,6 +1927,8 @@ const closeModal = (msg) => {
   position: absolute;
   left: 15.7vh;
   top: 1vh;
+  left: 15.7dvh;
+  top: 1dvh;
 }
 
 .table-10 {
@@ -1907,6 +1937,8 @@ const closeModal = (msg) => {
   position: absolute;
   left: 2vh;
   top: 1.39vh;
+  left: 2dvh;
+  top: 1.39dvh;
 }
 
 .table-11 {
@@ -1915,6 +1947,8 @@ const closeModal = (msg) => {
   position: absolute;
   left: 1.7vh;
   top: 15.29vh;
+  left: 1.7dvh;
+  top: 15.29dvh;
 }
 
 .table-12 {
@@ -1923,6 +1957,8 @@ const closeModal = (msg) => {
   position: absolute;
   left: 1.7vh;
   top: 36.1vh;
+  left: 1.7dvh;
+  top: 36.1dvh;
 }
 
 .table-13 {
@@ -1931,20 +1967,28 @@ const closeModal = (msg) => {
   position: absolute;
   left: 1.7vh;
   top: 56.9vh;
+  left: 1.7dvh;
+  top: 56.9dvh;
 }
 
 .zalkino {
   width: 10.4vh;
+  width: 10.4dvh;
   position: absolute;
   right: 11vh;
   top: 40vh;
+  right: 11dvh;
+  top: 40dvh;
 }
 
 .zalexit {
   width: 2.3vh;
+  width: 2.3dvh;
   position: absolute;
   right: 1vh;
   top: 4vh;
+  right: 1dvh;
+  top: 4dvh;
 }
 
 .main__borderkino::after {

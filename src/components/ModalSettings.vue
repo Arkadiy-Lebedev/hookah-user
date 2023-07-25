@@ -93,6 +93,7 @@ if (user.phone.length < 15) {
     <div class="modalaccountActive">       
       
             <div class="modalaccountClose">
+              <img @click="emit('closeModal')" src="../assets/image/exit.svg" alt="выход" />
               <img @click="emit('closeModal')"  src="../assets/image/clouse.svg" alt="зыкрыть" />
             </div>
             <div class="modalaccountlogin">
@@ -128,7 +129,7 @@ if (user.phone.length < 15) {
                   </div>
                 </div>
               </div>
-              <p class="error-text" v-if="errors.isError">{{ errors.text }}</p>              
+              <p class="error-text error-registr" v-if="errors.isError">{{ errors.text }}</p>              
               <button class="save">Изменить</button>
               </form>
             </div>
@@ -142,7 +143,10 @@ if (user.phone.length < 15) {
   font-size: 14px;
   margin: 0;
 }
-
+.error-registr {
+  margin-bottom: 3vh;
+  margin-bottom: 3dvh;
+}
 .--input-active {
   border-radius: 0 !important;
 }
@@ -253,8 +257,11 @@ input:focus {
   display: flex;
   padding-left: 2.9vh;
   padding-right: 2.9vh;
-  justify-content: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3.5vh;
+  margin-bottom: 3.5dvh;
 }
+
 
 .modalpicture img {
   max-width: 100%;

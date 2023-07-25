@@ -261,7 +261,7 @@ const submitForm = () => {
 
 .save {
   width: 100%;
-  height: 31px;
+  height: 39px;
   border-radius: 0px 0px 5px 5px;
   background: #C69A5B;
   color: #fff;
