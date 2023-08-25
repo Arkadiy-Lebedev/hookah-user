@@ -1,25 +1,26 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
-import InputMask from 'primevue/inputmask';
-import axios from 'axios';
-import { apiMain } from "../api/api"
+import axios from 'axios'
+import InputMask from 'primevue/inputmask'
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { apiMain } from '../api/api'
 import { useUserStore } from '../stores/userStore'
 
-const userStore = useUserStore();
+const userStore = useUserStore()
+const router = useRouter()
 
 interface IUser {
-  idUser: number,
-  name: string,
-  phoneUserNow: string,
-  phone: string,
-  nowPassword: string,
-  password: string,
-  repeaPassword: string,
+  idUser: number
+  name: string
+  phoneUserNow: string
+  phone: string
+  nowPassword: string
+  password: string
+  repeaPassword: string
 }
 
 const emit = defineEmits<{
   (e: 'closeModal', msg?: string): void
-
 }>()
 
 const user = reactive<IUser>({
@@ -27,114 +28,111 @@ const user = reactive<IUser>({
   name: userStore.userInfo.name,
   phoneUserNow: userStore.userInfo.phone,
   phone: userStore.userInfo.phone,
-  nowPassword: "",
-  password: "",
-  repeaPassword: "",
+  nowPassword: '',
+  password: '',
+  repeaPassword: ''
 })
 
 const errors = ref({
   isError: false,
-  text: ""
+  text: ''
 })
 
 const submitForm = () => {
   errors.value.isError = false
   if (user.password != user.repeaPassword) {
-
     errors.value.isError = true
-    errors.value.text = "Пароли не сопадают"
+    errors.value.text = 'Пароли не сопадают'
     return
   }
-  
-if (user.phone.length < 15) {
+
+  if (user.phone.length < 15) {
     errors.value.isError = true
-    errors.value.text = "Не корректный номер телефона"
+    errors.value.text = 'Не корректный номер телефона'
     return
   }
 
   axios
-    .post(`${apiMain}api/client/auth/edit`, user,  {
+    .post(`${apiMain}api/client/auth/edit`, user, {
       onUploadProgress: (e) => {
         console.log(e)
-      },
+      }
     })
     .then((data) => {
       console.log(data.data)
-      if (data.status ) {
-       
+      if (data.status) {
         userStore.userInfo.name = user.name
-         emit('closeModal', "succes")
-      }  
-
-
-
-    }).catch((error) => {
-      console.log(error.response?.data);
+        emit('closeModal', 'succes')
+      }
+    })
+    .catch((error) => {
+      console.log(error.response?.data)
       errors.value.isError = true
       errors.value.text = error.response?.data?.message
-
     })
     .finally(() => {
       // loading.value = false;
-
-
-    });
-
-
+    })
 }
 
-
-
+const logOut = () => {
+  localStorage.removeItem('tokenUser')
+  router.push({ name: 'auth' })
+}
 </script>
 
 <template>
-
-  <div @click.self="emit('closeModal')" class="modalaccountBackground">         
-    <div class="modalaccountActive">       
-      
-            <div class="modalaccountClose">
-              <img @click="emit('closeModal')" src="../assets/image/exit.svg" alt="выход" />
-              <img @click="emit('closeModal')"  src="../assets/image/clouse.svg" alt="зыкрыть" />
+  <div @click.self="emit('closeModal')" class="modalaccountBackground">
+    <div class="modalaccountActive">
+      <div class="modalaccountClose">
+        <img @click="logOut" src="../assets/image/exit.svg" alt="выход" />
+        <img @click="emit('closeModal')" src="../assets/image/clouse.svg" alt="зыкрыть" />
+      </div>
+      <div class="modalaccountlogin">
+        <form class="form" @submit.prevent="submitForm">
+          <a class="modalaccountheader">Гость</a>
+          <div class="modallogin">
+            <div class="modalname stylefilds">
+              <p>Имя:</p>
+              <input v-model="user.name" id="inputname" type="text" />
             </div>
-            <div class="modalaccountlogin">
-               <form class="form" @submit.prevent="submitForm">
-              <a class="modalaccountheader">Гость</a>
-              <div class="modallogin">
-                <div class="modalname stylefilds">
-                  <p>Имя:</p>
-                  <input v-model="user.name"  id="inputname" type="text">
-                </div>
-                <div class="modallog stylefilds">
-                  <p> Телефон:</p>
-                  <!-- <input id="inputtel" type="text"> -->
-                  <InputMask id="basic" v-model="user.phone" mask="+7999-999-99-99" placeholder="Телефон" :pt="{
-                    root: { class: '--input-active inputtel' }
-                  }" />
-                </div>
-              </div>
-              <div class="loginchange">
-                <a class="modalaccountheader">Изменение пароля</a>
-                <div class="fieldschange">
-                  <div class="remodallogin stylefilds">
-                    <p> Текущий пароль:</p>
-                    <input v-model="user.nowPassword" type="text">
-                  </div>
-                  <div class="newmodallogin stylefilds">
-                    <p> Новый пароль:</p>
-                    <input v-model="user.password" type="text">
-                  </div>
-                  <div class="oknewmodallogin stylefilds">
-                    <p> Подтверждение нового пароля:</p>
-                    <input v-model="user.repeaPassword"  type="text">
-                  </div>
-                </div>
-              </div>
-              <p class="error-text error-registr" v-if="errors.isError">{{ errors.text }}</p>              
-              <button class="save">Изменить</button>
-              </form>
+            <div class="modallog stylefilds">
+              <p>Телефон:</p>
+              <!-- <input id="inputtel" type="text"> -->
+              <InputMask
+                id="basic"
+                v-model="user.phone"
+                mask="+7999-999-99-99"
+                placeholder="Телефон"
+                :pt="{
+                  root: { class: '--input-active inputtel' }
+                }"
+              />
             </div>
           </div>
-        </div>
+          <div class="loginchange">
+            <a class="modalaccountheader">Изменение пароля</a>
+            <div class="fieldschange">
+              <div class="remodallogin stylefilds">
+                <p>Текущий пароль:</p>
+                <input v-model="user.nowPassword" type="text" />
+              </div>
+              <div class="newmodallogin stylefilds">
+                <p>Новый пароль:</p>
+                <input v-model="user.password" type="text" />
+              </div>
+              <div class="oknewmodallogin stylefilds">
+                <p>Подтверждение нового пароля:</p>
+                <input v-model="user.repeaPassword" type="text" />
+              </div>
+            </div>
+          </div>
+          <p class="error-text error-registr" v-if="errors.isError">{{ errors.text }}</p>
+          <button class="save">Изменить</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -151,13 +149,10 @@ if (user.phone.length < 15) {
   border-radius: 0 !important;
 }
 
-
 .--input-active:focus {
   box-shadow: 0 0 0 0.1rem #938d8d !important;
   border-color: #5d5d5e !important;
 }
-
-
 
 input {
   width: 293px;
@@ -200,11 +195,10 @@ input:focus {
 .modalaccountActive {
   position: relative;
   z-index: 999;
-
 }
-.modalaccountlogin, .modalaccountClose {
-
-  position:relative;
+.modalaccountlogin,
+.modalaccountClose {
+  position: relative;
   z-index: 2;
 }
 
@@ -218,12 +212,9 @@ input:focus {
   height: 100%;
   z-index: 1;
   opacity: 6%;
-  background-image: url("../assets/image/bg.jpg");  
+  background-image: url('../assets/image/bg.jpg');
   background-position: 50% 0;
- 
 }
-
-
 
 .modalaccountBackground {
   display: flex;
@@ -262,13 +253,12 @@ input:focus {
   margin-bottom: 3.5dvh;
 }
 
-
 .modalpicture img {
   max-width: 100%;
 }
 .map {
-   width:200px;
-   height: 200px;
+  width: 200px;
+  height: 200px;
 }
 .modalaccountlogin {
   display: flex;
@@ -277,7 +267,7 @@ input:focus {
   padding-right: 2.9vh;
 }
 .modalaccountheader {
-  color: #C69A5B;
+  color: #c69a5b;
   font-size: 22px;
   font-family: Roboto;
   margin-bottom: 4vh;
@@ -290,49 +280,48 @@ input:focus {
   display: flex;
   gap: 3.5vh;
   margin-bottom: 3vh;
-
 }
 .modalname {
-  flex:1;
+  flex: 1;
 }
 .modallog {
-  flex:1;
+  flex: 1;
 }
-.stylefilds p{
-  color: #FFF;
-font-size: 16px;
-font-family: Roboto;
-font-weight: 300;
-margin-bottom: 10px;
+.stylefilds p {
+  color: #fff;
+  font-size: 16px;
+  font-family: Roboto;
+  font-weight: 300;
+  margin-bottom: 10px;
 }
 .stylefilds input {
-  width:100%;
+  width: 100%;
   height: 32px;
-background: #777777;
-color: #fff; 
-font-size: 16px;
-
+  background: #777777;
+  color: #fff;
+  font-size: 16px;
 }
-.loginchange{
-padding: 2vh;
-border-radius: 5px;
-border: 1px solid #BFBFBF;
-margin-bottom: 3vh;
+.loginchange {
+  padding: 2vh;
+  border-radius: 5px;
+  border: 1px solid #bfbfbf;
+  margin-bottom: 3vh;
 }
-.fieldschange{
-margin-top: 4vh;
+.fieldschange {
+  margin-top: 4vh;
 }
-.newmodallogin, .remodallogin {
-margin-bottom: 25px;
+.newmodallogin,
+.remodallogin {
+  margin-bottom: 25px;
 }
 .save {
   width: 152px;
-height: 31px;
-border-radius: 5px;
-background: #C69A5B;
-color: #fff;
-font-size: 14px;
-font-family: Roboto;
+  height: 31px;
+  border-radius: 5px;
+  background: #c69a5b;
+  color: #fff;
+  font-size: 14px;
+  font-family: Roboto;
 }
 
 @media (max-width: 576px) {
@@ -346,42 +335,41 @@ font-family: Roboto;
   .modalaccountClose img {
     width: 9%;
   }
-.modallogin{
-  flex-direction: column;
-  gap: 1vh;
-  margin-bottom: 5vh;
-}
-#inputname {
-  width: 200px;
-}
-.inputtel {
-  width: 200px !important;
-}
- .modalaccountheader {
-  font-size: 18px;
- }
- .stylefilds p {
-  font-size: 14px;
-  margin-bottom: 5px;
- }
- .stylefilds input {
-  height: 28px;
-}
+  .modallogin {
+    flex-direction: column;
+    gap: 1vh;
+    margin-bottom: 5vh;
+  }
+  #inputname {
+    width: 200px;
+  }
+  .inputtel {
+    width: 200px !important;
+  }
+  .modalaccountheader {
+    font-size: 18px;
+  }
+  .stylefilds p {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  .stylefilds input {
+    height: 28px;
+  }
 }
 @media (max-width: 340px) {
-  .newmodallogin, .remodallogin {
+  .newmodallogin,
+  .remodallogin {
     margin-bottom: 13px;
+  }
+  .modalaccountheader {
+    margin-bottom: 3vh;
+  }
+  .fieldschange {
+    margin-top: 3vh;
+  }
+  .stylefilds input {
+    height: 30px;
+  }
 }
-.modalaccountheader {
-  margin-bottom: 3vh;
-}
-.fieldschange {
-  margin-top: 3vh;
-}
-.stylefilds input {
-  height: 30px;
-}
-}
-
-
 </style>

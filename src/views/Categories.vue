@@ -1,37 +1,15 @@
 <script setup lang="ts">
-import HeaderMenu from "../components/HeaderMenu.vue"
-import { ref } from 'vue'
 import { useRouter } from "vue-router";
-import axios from 'axios';
-import { apiMain } from "../api/api"
+import { useCategoriesStore } from '../stores/categoriesStore'
 
+const useCategories = useCategoriesStore();
 const router = useRouter();
 
-interface ICategories {
-  id: number
-  type: string
-  image: string
-}
-
-const categories = ref<ICategories[]>([])
-
-
-const getCategoriesList = async () => {
-  try {
-    const { data } = await axios.get(`${apiMain}api/client/categories`)
-    categories.value = data.data
-  } catch (e) {
-    console.log(e)
-  }
-}
-getCategoriesList()
-
 </script>
-
 <template>
 
    <div class="header">
-     <!-- <HeaderMenu/> -->
+
  
           <div class="inscription">       
               <h3 class="inscription__hall">Меню</h3>
@@ -42,7 +20,7 @@ getCategoriesList()
             <img src="../assets/image/picture.jpg" alt="меню" />
           </div>
           <div class="products">
-            <div v-for="categoria in categories" :key="categoria.id" class="products__items" @click="router.push({ name: 'products', params: { id: categoria.id } })">
+            <div v-for="categoria in useCategories.categories" :key="categoria.id" class="products__items" @click="router.push({ name: 'products', params: { id: categoria.id } })">
               <img :src="categoria.image" alt="кальян" />
               <p>{{ categoria.type }}</p>
             </div>
@@ -143,18 +121,15 @@ p{
   padding: 0 30px 0 30px;
   padding-bottom:20px;
 }
-.main__picture img{  
-  width: 39vh;
-  width: 39dvh;
+.main__picture img{
+  max-width: 100%;
 }
 .main__picture {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1.5vh;
-  margin-bottom: 1.5dvh;
+  margin-bottom: 3vh;
   margin-top: 1vh;
-  margin-top: 1dvh;
 }
 .products{
   display: grid;

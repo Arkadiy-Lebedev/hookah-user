@@ -1,23 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import { RouterView } from 'vue-router'
-import { useRouter } from "vue-router"
-import axios from 'axios';
-import { apiMain } from "./api/api"
-import { useUserStore } from './stores/userStore'
-import { useTablesList } from './stores/tablesStore'
+import axios from 'axios'
+import { RouterView, useRouter } from 'vue-router'
+import { apiMain } from './api/api'
 import { useDateStore } from './stores/dateStore'
-const userStore = useUserStore();
+import { useTablesList } from './stores/tablesStore'
+import { useUserStore } from './stores/userStore'
+import GlobalImageLoader from "./components/GlobalImageLoader.vue";
+const userStore = useUserStore()
 const router = useRouter()
 
-
-const tablesList = useTablesList();
-const dateStore = useDateStore();
+const tablesList = useTablesList()
+const dateStore = useDateStore()
 const localToken = localStorage.getItem('tokenUser')
 
-window.addEventListener("load", () => document.querySelector(".preloader")?.remove());
-
+window.addEventListener('load', () => document.querySelector('.preloader')?.remove())
 
 const loading = ref(true)
 
@@ -25,28 +23,29 @@ console.log(localToken)
 if (localToken) {
   const auth = async () => {
     axios
-      .post(`${apiMain}api/client/auth/token`, { token: localToken }, {
-        onUploadProgress: (e) => {
-          console.log(e)
-        },
-      })
+      .post(
+        `${apiMain}api/client/auth/token`,
+        { token: localToken },
+        {
+          onUploadProgress: (e) => {
+            console.log(e)
+          }
+        }
+      )
       .then((data) => {
-
         userStore.userInfo.id = data.data.user[0].id
         userStore.userInfo.name = data.data.user[0].name
         userStore.userInfo.phone = data.data.user[0].phone
 
         router.push({ name: 'holl' })
-
-
-      }).catch((error) => {
+      })
+      .catch((error) => {
         router.push({ name: 'auth' })
         console.log(error)
       })
       .finally(() => {
         // loading.value = false;
-
-      });
+      })
   }
 
   auth()
@@ -56,9 +55,6 @@ if (localToken) {
 
 dateStore.entryDate(new Date())
 tablesList.getTablesInDate(dateStore.dateInBooking)
-
-
-
 
 // // пуш firebase
 
@@ -76,7 +72,6 @@ tablesList.getTablesInDate(dateStore.dateInBooking)
 // // @ts-ignore
 // const messaging = firebase.messaging();
 
-
 // function IntitalizeFireBaseMessaging() {
 //   messaging
 //     .requestPermission()
@@ -86,7 +81,6 @@ tablesList.getTablesInDate(dateStore.dateInBooking)
 //     })
 //     .then(function (token: string) {
 //       console.log("Token : " + token);
-
 
 //       // let formData = new FormData();
 //       // formData.append('token', token);
@@ -104,8 +98,6 @@ tablesList.getTablesInDate(dateStore.dateInBooking)
 //         })
 //         .then((data) => {
 
-
-
 //         }).catch((error) => {
 
 //           console.log(error)
@@ -115,15 +107,11 @@ tablesList.getTablesInDate(dateStore.dateInBooking)
 
 //         });
 
-
-
 //     })
 //     .catch(function (reason:any) {
 //       console.log(reason);
 //     });
 // }
-
-
 
 // // messaging.onMessage(function (payload:any) {
 // //   console.log(payload);
@@ -143,7 +131,6 @@ tablesList.getTablesInDate(dateStore.dateInBooking)
 // //     }
 // //   }
 // // });
-
 
 // messaging.onMessage(function (payload: any) {
 //   // play();
@@ -174,8 +161,6 @@ tablesList.getTablesInDate(dateStore.dateInBooking)
 //   });
 // });
 
-
-
 // messaging.onTokenRefresh(function () {
 //   messaging.getToken()
 //     .then(function (newtoken:string) {
@@ -193,19 +178,17 @@ tablesList.getTablesInDate(dateStore.dateInBooking)
 //     })
 // })
 
-
 // console.log('разрешение ' + Notification.permission);
 // console.log(('Notification' in window));
 
 // // проверка на поддержку пуш и согласился или нет
 
-
 // IntitalizeFireBaseMessaging();
-
 </script>
 
 <template>
   <router-view />
+  <GlobalImageLoader></GlobalImageLoader>
 </template>
 
 <style scoped></style>

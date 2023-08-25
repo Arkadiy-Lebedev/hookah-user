@@ -77,11 +77,11 @@ const closeModal = (msg) => {
   console.log(msg)
   console.log(4564564564564)
   if (msg == 'succes') {
-    toast.add({ severity: 'success', summary: 'Стол забронирован', detail: 'Не опаздывайте', group: 'pt', life: 3000 });
+    toast.add({ severity: 'success', summary: 'Стол забронирован', detail: 'Разогреваем угли', group: 'pt', life: 3000 });
   }
   
     if (msg == 'cancel') {
-   toast.add({ severity: 'error', summary: 'Бронь снята', detail: 'Выбирете другое время', group: 'er', life: 3000 });
+   toast.add({ severity: 'error', summary: 'Бронь снята', detail: 'Кальянщик расстроен', group: 'er', life: 3000 });
   }  
   isModal.value = false
 

@@ -2,6 +2,7 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from "vue-router";
 import ModalSettings from "../components/ModalSettings.vue"
+import ModalContacts from "../components/ModalContacts.vue"
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
 
@@ -13,12 +14,14 @@ const logOut = () => {
 }
 
 const isModalSetting = ref<boolean>()
+const isModalContacts = ref<boolean>()
 
 const closeModal = (msg) => {
   if (msg == 'succes') {
     toast.add({ severity: 'success', summary: 'Успешно!', detail: 'Данные изменены', group: 'pt', life: 10000 });
   }
   isModalSetting.value = false
+  isModalContacts.value = false
 }
 
 </script>
@@ -32,8 +35,13 @@ const closeModal = (msg) => {
           <ModalSettings v-if="isModalSetting" @closeModal="closeModal" />
         </TransitionGroup>
       </Teleport>
+      <Teleport to="body">
+        <TransitionGroup name="list">
+          <ModalContacts v-if="isModalContacts" @closeModal="closeModal" />
+        </TransitionGroup>
+      </Teleport>
               <div class="menu">
-                <img @click="logOut" src="../assets/image/question.svg" alt="exit" class="menu__exit">
+                <img @click="isModalContacts = true" src="../assets/image/question.svg" alt="exit" class="menu__exit">
                 <p>Haradac</p>
                 <img @click="isModalSetting = true" src="../assets/image/gear.svg" alt="exit" class="menu__question">
               </div>

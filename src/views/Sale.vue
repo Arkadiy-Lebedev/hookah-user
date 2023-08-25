@@ -4,6 +4,7 @@ import { ref } from 'vue'
 
 import axios from 'axios';
 import { apiMain } from "../api/api"
+import SpinnerLoading from "../components/Spinner.vue";
 
 
 
@@ -15,12 +16,14 @@ interface ISaleList {
 }
 
 const saleList = ref<ISaleList[]>([])
-
+  const spinner = ref<boolean>(true)
 
 const getSaleList = async () => {
+  spinner.value = true
   try {
     const { data } = await axios.get(`${apiMain}api/client/sale`)
     saleList.value = data.data
+    spinner.value = false
   } catch (e) {
     console.log(e)
   }
@@ -39,7 +42,8 @@ getSaleList()
           </div>
         </div>
      <div class="main main-style">
-          <div v-for="item in saleList" :key="item.id" class="main-sales ">
+      <SpinnerLoading v-if="spinner" ></SpinnerLoading>
+          <div v-else v-for="item in saleList" :key="item.id" class="main-sales ">
             <img :src="item.image" alt="акция" />
             <div class="main-sales__wrapper">
               <div class="main-sales__description">
@@ -81,26 +85,6 @@ p{
   justify-content: space-between;
   align-items: center;
 }
-.main-sales {
-  position: relative;
-  z-index: 10 !important;
-  background: none;
-}
-
-.main:before {
-  content: ' ';
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  opacity: 6%;
-  background-image: url("../assets/image/bg.jpg");
-  background-position: 50% 0;
-
-}
 .menu::after {
   content: "";
   width: 100%;
@@ -109,8 +93,6 @@ p{
   bottom: 0;
   position: absolute;
 }
-
-
 
 .menu__exit {
   height: 2vh;
@@ -162,17 +144,15 @@ p{
   overflow-y: scroll;
   position: relative;
 }
-.main-sales {
-  margin-top: 2vh;
-}
 
 
 
 .main-sales {
   display: flex;
   align-items: center;
-  padding: 0.9vh 1.2vh 0.9vh;
+  padding: 2vh 1.2vh 2vh;
   background: #262626;
+  margin-top:  1vh;
 }
 .main-sales img{
   width: 14vh;
@@ -198,15 +178,9 @@ font-size: 16px;
   .main-sales__name {
   font-size: 18px;
   }
-  .main-sales__name{
-    font-size: 18px;
-  }
   .main-sales__explanation {
-  font-size: 14px;
+  font-size: 15px;
   }
-  .main-sales img{
-    width: 12vh;
-}
 }
 @media (max-width: 420px) {
   .inscription__hall {
@@ -221,15 +195,6 @@ font-size: 16px;
   .main-sales__explanation {
   font-size: 14px;
   }
-  .main-sales img{
-    width: 10vh;
-}
-.main-sales__explanation {
-    font-size: 13px;
-}
-.main-sales__name {
-    font-size: 16px;
-}
 }
 @media (max-width: 340px) {
   .main-sales__name {

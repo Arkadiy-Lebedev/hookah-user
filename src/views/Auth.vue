@@ -1,55 +1,58 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
-import InputMask from 'primevue/inputmask';
-import Toast from 'primevue/toast';
-import { useToast } from 'primevue/usetoast';
-import { useRouter } from "vue-router";
-import axios from 'axios';
-import { apiMain } from "../api/api"
-import ModalRegistration from "../components/ModalRegistration.vue"
+import axios from 'axios'
+import InputMask from 'primevue/inputmask'
+import Toast from 'primevue/toast'
+import { useToast } from 'primevue/usetoast'
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { apiMain } from '../api/api'
+import ModalRegistration from '../components/ModalRegistration.vue'
 import { useUserStore } from '../stores/userStore'
 
-const userStore = useUserStore();
+const userStore = useUserStore()
 
-const router = useRouter();
+const router = useRouter()
 
-const toast = useToast();
-
+const toast = useToast()
 
 const isModalRegistration = ref<boolean>()
 
 interface IUser {
-  login: string,
-  password: string,
+  login: string
+  password: string
 }
 
 const user = reactive<IUser>({
-  login: "",
-  password: "",
+  login: '',
+  password: ''
 })
 
- const errors = ref({
+const errors = ref({
   isError: false,
-  text: ""
+  text: ''
 })
-
 
 const closeModal = (msg) => {
   if (msg == 'succes') {
-    toast.add({ severity: 'success', summary: 'Успешная регистрация', detail: 'Войдите под своими данными',  group: 'pt', life: 10000 });
+    toast.add({
+      severity: 'success',
+      summary: 'Успешная регистрация',
+      detail: 'Войдите под своими данными',
+      group: 'pt',
+      life: 10000
+    })
   }
   isModalRegistration.value = false
 }
 
 const submitForm = () => {
-  
   errors.value.isError = false
 
   axios
     .post(`${apiMain}api/client/auth`, user, {
       onUploadProgress: (e) => {
         console.log(e)
-      },
+      }
     })
     .then((data) => {
       console.log(data.data)
@@ -60,31 +63,27 @@ const submitForm = () => {
         userStore.userInfo.phone = data.data.user.phone
 
         router.push({ name: 'holl' })
-      
       }
-
-    }).catch((error) => {
-      console.log(error);
+    })
+    .catch((error) => {
+      console.log(error)
       errors.value.isError = true
       errors.value.text = error.response?.data?.message
     })
     .finally(() => {
       // loading.value = false;
-
-
-    });
-
-
+    })
 }
-
-
 </script>
 
 <template>
   <section>
-      <Toast group="pt" :pt="{
+    <Toast
+      group="pt"
+      :pt="{
         container: { class: 'msg-succes' }
-      }"/>
+      }"
+    />
     <Teleport to="body">
       <TransitionGroup name="list">
         <ModalRegistration v-if="isModalRegistration" @closeModal="closeModal" />
@@ -102,26 +101,31 @@ const submitForm = () => {
         <form class="form" @submit.prevent="submitForm">
           <div class="inputbox">
             <div class="inputlogin">
-              <img src="../assets/image/manferst.svg" alt="иконка лиготипа">
+              <img src="../assets/image/manferst.svg" alt="иконка лиготипа" />
               <!-- <input id="phone" type="tel" name="login" placeholder="+7-999-999-99-99"> -->
-              <InputMask id="basic" v-model="user.login" mask="+7999-999-99-99" placeholder="Телефон" :pt="{
-                root: { class: '--input-active' }
-              }" />
+              <InputMask
+                id="basic"
+                v-model="user.login"
+                mask="+7999-999-99-99"
+                placeholder="Телефон"
+                :pt="{
+                  root: { class: '--input-active' }
+                }"
+              />
             </div>
             <div class="inputpasword">
-              <img src="../assets/image/pasword.svg" alt="иконка пароля">
-              <input v-model="user.password" type="password" placeholder="Пароль">
-
+              <img src="../assets/image/pasword.svg" alt="иконка пароля" />
+              <input v-model="user.password" type="password" placeholder="Пароль" />
             </div>
             <div class="enterblock">
               <button type="submit" class="bottom">Войти</button>
               <p class="error-text" v-if="errors.isError">{{ errors.text }}</p>
-              <a @click="isModalRegistration = true" class="link_back link_rec">Зарегистрироваться</a>
-   
+              <a @click="isModalRegistration = true" class="link_back link_rec"
+                >Зарегистрироваться</a
+              >
             </div>
           </div>
         </form>
-
       </div>
     </div>
     <p class="reserv2">ООО "Моя Кальянная"</p>
@@ -132,7 +136,6 @@ const submitForm = () => {
 .error-text {
   color: #ff0000;
   font-size: 14px;
-  
 }
 
 .list-enter-active,
@@ -168,7 +171,7 @@ const submitForm = () => {
 
 section {
   height: 100vh;
-  height: 100dvh;  
+  height: 100dvh;
   background: #01010c;
   position: relative;
   overflow: hidden;
@@ -185,9 +188,8 @@ section:before {
   height: 100%;
   z-index: 1;
   opacity: 10%;
-  background-image: url("../assets/image/bg.jpg");
+  background-image: url('../assets/image/bg.jpg');
   background-position: 50% 0;
-
 }
 
 input {
@@ -223,12 +225,11 @@ input::-ms-input-placeholder {
 button {
   width: 293px;
   height: 47px;
-  background: #4777A8;
+  background: #4777a8;
   border: none;
   color: #fff;
   font-size: 18px;
   line-height: 24px;
-
 }
 
 .centerblock {
@@ -258,10 +259,9 @@ button {
 
 .link_back {
   text-decoration: underline;
-  color: #FFF;
+  color: #fff;
   font-size: 14px;
   letter-spacing: 0.25px;
-
 }
 
 .reserv2 {
@@ -303,11 +303,7 @@ button {
   font-size: 18px;
 }
 
-
-
-
 @media (max-width: 460px) {
-
   .logo__img {
     width: 234px;
     height: 227px;
@@ -320,7 +316,6 @@ button {
   .text_vh {
     font-size: 16px;
   }
-
 }
 
 @media (max-width: 375px) {

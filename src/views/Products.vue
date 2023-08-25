@@ -6,6 +6,8 @@ import { useRoute } from "vue-router";
 import axios from 'axios';
 import { apiMain } from "../api/api"
 import { IProduct } from "../types/Iproduct"
+import SpinnerLoading from "../components/Spinner.vue";
+
 
 const route = useRoute();
 
@@ -13,9 +15,10 @@ const route = useRoute();
 
 const products = ref<IProduct[]>([])
 const categories = ref<string>('')
+  const spinner = ref<boolean>(true)
 
 const getProductsList = async (id: string) => {
-
+  spinner.value = true
   try {
     const { data } = await axios.post(`${apiMain}api/client/products`, {
       id: id
@@ -23,6 +26,7 @@ const getProductsList = async (id: string) => {
     console.log(data)
     products.value = data.data
     categories.value = data.categories[0].type
+    spinner.value = false
 
   } catch (e) {
     console.log(e)
@@ -34,42 +38,25 @@ getProductsList(route.params.id)
 </script>
 
 <template>
-  <HeaderMenuProducts :title="categories"/>
+  <HeaderMenuProducts :title="categories"/>  
   <div class="main-menu main-menu-style">
-    <Product v-if="products.length>0" v-for="product in products" :key="product.id" :header="product.name" :description="product.discription_product" :price="product.price" :img="product.image_product" />
+  <SpinnerLoading v-if="spinner" ></SpinnerLoading>
+    <Product v-else-if="products.length>0" v-for="product in products" :key="product.id" :header="product.name" :description="product.discription_product" :price="product.price" :img="product.image_product" />
    <p v-else  class="main-item__text">Товары скоро появятся</p>
     </div>
  
 </template>
 
 <style scoped>
+
+
+
 .main-menu {
   flex: 1;
   background: #000;
   overflow: hidden;
   overflow-y: scroll;
   position: relative;
-}
-
-.main-items {
-  position: relative;
-  z-index: 2 !important;
-  background: none;
-}
-
-.main-menu:before {
-  content: ' ';
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  opacity: 6%;
-  background-image: url("../assets/image/bg.jpg");
-  background-position: 50% 0;
-
 }
 
 .main-menu-style {

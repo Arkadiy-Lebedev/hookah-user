@@ -3,6 +3,11 @@ import { RouterView } from 'vue-router'
 import HeaderMenu from "../components/HeaderMenu.vue"
 
 import Footer from '../components/Footer.vue'
+import { useCategoriesStore } from '../stores/categoriesStore'
+
+const useCategories = useCategoriesStore();
+useCategories.getCategories()
+
 </script>
 
 
